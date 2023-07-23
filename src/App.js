@@ -25,12 +25,22 @@ export default function App() {
             fiber: 1.1,
             protein: 10.8,
         },
+        {
+            foodName: "Corn with Butter",
+            kcal: 106,
+            fat: 2.4,
+            saturatedFat: 1.1,
+            carbs: 21.9,
+            sugar: 0,
+            fiber: 0,
+            protein: 3.1,
+        },
     ]);
 
     return (
         <div className="App">
             <header className="App-header">
-                <h1>KCal App / Mai Menü</h1>
+                <h1>KCal App</h1>
                 <FoodNutritionForm />
                 <FoodList foodItems={foodItems} />
             </header>
