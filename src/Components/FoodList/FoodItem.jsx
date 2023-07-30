@@ -2,12 +2,17 @@ import React from 'react';
 
 export default function FoodItem({ data }) {
     let { foodName, kcal, fat, saturatedFat, carbs, sugar, fiber, protein } = data;
+
+    function macroValueFormat(value) {
+        return value.toFixed(1);
+    }
+
     return (
-        <li>
-            <table>
+        <li className="food-item">
+            <table className='food-table'>
                 <thead>
                     <tr>
-                        <th colSpan="2">{ foodName }</th>
+                        <th colSpan="2" className="food-name-cell">{ foodName }</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,27 +22,27 @@ export default function FoodItem({ data }) {
                     </tr>
                     <tr>
                         <th>Fat</th>
-                        <td>{ fat }</td>
+                        <td>{ macroValueFormat(fat) }</td>
                     </tr>
                     <tr>
                         <th>Saturated Fat</th>
-                        <td>{ saturatedFat }</td>
+                        <td>{ macroValueFormat(saturatedFat) }</td>
                     </tr>
                     <tr>
                         <th>Carbohydrates</th>
-                        <td>{ carbs }</td>
+                        <td>{ macroValueFormat(carbs) }</td>
                     </tr>
                     <tr>
                         <th>Sugar</th>
-                        <td>{ sugar }</td>
+                        <td>{ macroValueFormat(sugar) }</td>
                     </tr>
                     <tr>
                         <th>Protein</th>
-                        <td>{ protein }</td>
+                        <td>{ macroValueFormat(protein) }</td>
                     </tr>
                     <tr>
                         <th>Fiber</th>
-                        <td>{ fiber }</td>
+                        <td>{ macroValueFormat(fiber) }</td>
                     </tr>
                 </tbody>
             </table>

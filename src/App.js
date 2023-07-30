@@ -50,11 +50,9 @@ export default function App() {
 
     return (
         <div className="App">
-            <header className="App-header">
-                <h1>KCal App</h1>
-                <FoodNutritionForm isNameUnique={isNameUnique} addItem={addItem} />
-                <FoodList foodItems={foodItems} />
-            </header>
+            <h1>KCal App</h1>
+            <FoodNutritionForm isNameUnique={isNameUnique} addItem={addItem} />
+            <FoodList foodItems={foodItems} />
         </div>
     );
 }
