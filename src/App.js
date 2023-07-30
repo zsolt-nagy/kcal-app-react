@@ -37,11 +37,22 @@ export default function App() {
         },
     ]);
 
+    /**
+     * PRE: trimmedItemName is trimmed.
+     */
+    function isNameUnique(trimmedItemName) {
+        return !foodItems.some((item) => item.foodName === trimmedItemName);
+    }
+
+    function addItem(item) {
+        setFoodItems((oldFoodItems) => [...oldFoodItems, item]);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <h1>KCal App</h1>
-                <FoodNutritionForm />
+                <FoodNutritionForm isNameUnique={isNameUnique} addItem={addItem} />
                 <FoodList foodItems={foodItems} />
             </header>
         </div>

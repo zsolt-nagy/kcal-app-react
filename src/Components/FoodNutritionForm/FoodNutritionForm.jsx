@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import './FoodNutritionForm.css';
 
-export default function FoodNutritionForm() {
+export default function FoodNutritionForm({ isNameUnique, addItem }) {
     const [foodName, setFoodName] = useState("");
     const [kcal, setKcal] = useState("");
     const [fat, setFat] = useState("");
@@ -10,25 +11,67 @@ export default function FoodNutritionForm() {
     const [protein, setProtein] = useState("");
     const [fiber, setFiber] = useState("");
 
+    const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
     const handleChange = setter => event => setter(event.target.value);
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(foodName, kcal, fat, saturatedFat, carbs, sugar, protein, fiber);
-        // TODO: foodName has to be unique 
+        let trimmedFoodName = foodName.trim();
 
-        setFoodName("");
-        setKcal("");
-        setFat("");
-        setSaturatedFat("");
-        setCarbs("");
-        setSugar("");
-        setProtein("");
-        setFiber("");
+        if (isNameUnique(trimmedFoodName)) {
+            addItem({
+                foodName: trimmedFoodName, 
+                kcal, 
+                fat, 
+                saturatedFat, 
+                carbs, 
+                sugar, 
+                protein, 
+                fiber
+            });
+
+            setFoodName("");
+            setKcal("");
+            setFat("");
+            setSaturatedFat("");
+            setCarbs("");
+            setSugar("");
+            setProtein("");
+            setFiber("");
+
+            setError("");
+            setSuccessMessage(`${trimmedFoodName} has been added.`);
+            setTimeout(() => setSuccessMessage(""), 6000);
+        } else {
+            setError(`The food name ${trimmedFoodName} already exists.`);
+            setSuccessMessage("");
+        }
+    }
+
+    let submitError = null;
+    if (error.length > 0) {
+        submitError = (
+            <div className="error notification">
+                { error }
+            </div>            
+        );
+    }
+
+    let submitSuccess = null;
+    if (successMessage.length > 0) {
+        submitSuccess = (
+            <div className="success notification">
+                { successMessage }
+            </div>            
+        );
     }
 
     return (
         <form onSubmit={handleSubmit}>
+            { submitError }
+            { submitSuccess }
             <div className="form-row">
                 <label htmlFor="food-name">Food Name</label>
                 <input 
