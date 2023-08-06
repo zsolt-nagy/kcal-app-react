@@ -1,0 +1,13 @@
+POST https://ry2p8g-8080.csb.app/api/food/new HTTP/1.1
+content-type: application/json
+
+{
+    "foodName": "Diet Soda",
+    "kcal": 0,
+    "fat": 0,
+    "saturatedFat": 0,
+    "carbs": 0,
+    "sugar": 0,
+    "fiber": 0,
+    "protein": 0  
+}

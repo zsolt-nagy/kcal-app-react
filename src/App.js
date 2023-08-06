@@ -1,41 +1,20 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FoodList from "./Components/FoodList/FoodList";
 import FoodNutritionForm from "./Components/FoodNutritionForm/FoodNutritionForm";
 
 export default function App() {
-    const [foodItems, setFoodItems] = useState([
-        {
-            foodName: "Cooked Broccoli",
-            kcal: 35,
-            fat: 0.4,
-            saturatedFat: 0,
-            carbs: 7.2,
-            sugar: 1.4,
-            fiber: 3.3,
-            protein: 2.4,
-        },
-        {
-            foodName: "Lemon Chicken",
-            kcal: 226,
-            fat: 11.8,
-            saturatedFat: 1.9,
-            carbs: 19.1,
-            sugar: 8.7,
-            fiber: 1.1,
-            protein: 10.8,
-        },
-        {
-            foodName: "Corn with Butter",
-            kcal: 106,
-            fat: 2.4,
-            saturatedFat: 1.1,
-            carbs: 21.9,
-            sugar: 0,
-            fiber: 0,
-            protein: 3.1,
-        },
-    ]);
+    const [foodItems, setFoodItems] = useState([]);
+
+    function loadData() {
+        fetch("https://ry2p8g-8080.csb.app/api/food")
+            .then((x) => x.json())
+            .then((itemList) => {
+                setFoodItems(itemList);
+            });
+    }
+
+    useEffect(loadData, []);
 
     /**
      * PRE: trimmedItemName is trimmed.
@@ -45,7 +24,18 @@ export default function App() {
     }
 
     function addItem(item) {
-        setFoodItems((oldFoodItems) => [...oldFoodItems, item]);
+        fetch("https://ry2p8g-8080.csb.app/api/food/new", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(item),
+        })
+            .then((x) => x.json())
+            .then((itemList) => {
+                setFoodItems(itemList);
+            });
     }
 
     return (
